@@ -1,0 +1,36 @@
+---Made by d.alt
+
+local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local char = plr.Character
+local UIS = game:GetService("UserInputService")
+local float = false
+
+
+local function dofloat()
+local debris = game:GetService("Debris")
+local part = Instance.new("Part")
+part.Anchored = true
+part.Size = Vector3.new(2,0.35,2)
+part.Transparency = 0.95
+part.Material = Enum.Material.Neon
+part.BrickColor = BrickColor.new("Royal purple")
+part.TopSurface = Enum.SurfaceType.Smooth
+part.BottomSurface = Enum.SurfaceType.Smooth
+part.Parent = workspace
+part.Position = char.HumanoidRootPart.Position + Vector3.new(0,-2.19595,0)
+debris:AddItem(part,0.1)
+end
+UIS.InputBegan:Connect(function(input)
+    if input.UserInputType==Enum.UserInputType.MouseButton3 then
+        if float then
+            float = false
+            else 
+                float = true
+    end
+end
+        while float == true do
+    dofloat()
+    wait()
+end
+end)
