@@ -18,7 +18,7 @@ part.BrickColor = BrickColor.new("Royal purple")
 part.TopSurface = Enum.SurfaceType.Smooth
 part.BottomSurface = Enum.SurfaceType.Smooth
 part.Parent = workspace
-part.Position = char.HumanoidRootPart.Position + Vector3.new(0,-2.19595,0)
+part.Position = char.HumanoidRootPart.Position + Vector3.new(0,-2.19596,0)
 debris:AddItem(part,0.1)
 end
 UIS.InputBegan:Connect(function(input)
