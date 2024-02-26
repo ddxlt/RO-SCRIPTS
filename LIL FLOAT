@@ -11,7 +11,7 @@ local function dofloat()
 local debris = game:GetService("Debris")
 local part = Instance.new("Part")
 part.Anchored = true
-part.Size = Vector3.new(2,0.35,2)
+part.Size = Vector3.new(1.2,0.35,1.2)
 part.Transparency = 0.95
 part.Material = Enum.Material.Neon
 part.BrickColor = BrickColor.new("Royal purple")
