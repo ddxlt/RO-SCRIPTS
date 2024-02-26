@@ -62,7 +62,7 @@ function RealCharacterDied()
   Part:Destroy()
   Part = Instance.new("Part", workspace)
   Part.Anchored = true
-  Part.Size = Vector3.new(200, 1, 200)
+  Part.Size = Vector3.new(200, 10, 200)
   Part.CFrame = CFrame.new(9999, 9999, 9999) --Set this to whatever you want, just far away from the map.
   Part.CanCollide = true
   FakeCharacter.Parent = workspace
