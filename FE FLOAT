@@ -1,39 +1,78 @@
----made by d.alt
-
-local plr = game.Players.LocalPlayer
-local mouse = plr:GetMouse()
-local char = plr.Character
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local character = player.Character
 local UIS = game:GetService("UserInputService")
 local float = false
+local part = nil
+local moveSpeed = 0.1 -- Adjust as needed
+local isMovingUp = false
+local isMovingDown = false
 
-
-local function dofloat()
-local debris = game:GetService("Debris")
-local part = Instance.new("Part")
-part.Anchored = true
-part.Size = Vector3.new(3,0.6,3)
-part.Transparency = 0.95
-part.Material = Enum.Material.SmoothPlastic
-part.BrickColor = BrickColor.new("Royal purple")
-part.TopSurface = Enum.SurfaceType.Smooth
-part.BottomSurface = Enum.SurfaceType.Smooth
-part.Parent = workspace
-part.Position = char.HumanoidRootPart.Position + Vector3.new(0,-3,0)
-debris:AddItem(part,0.1)
-end
-UIS.InputBegan:Connect(function(input)
-    if input.UserInputType==Enum.UserInputType.MouseButton3 then
-        if float then
-            float = false
-            else 
-                float = true
+local function deletePart()
+    if part then
+        part:Destroy()
+        part = nil
     end
 end
-        while float == true do
-    dofloat()
+
+local function spawnPart()
+    part = Instance.new("Part")
+    part.Anchored = true
+    part.Size = Vector3.new(3,0.6,3)
+    part.Transparency = 0.90
+    part.Material = Enum.Material.Neon
+    part.BrickColor = BrickColor.new("Royal purple")
+    part.TopSurface = Enum.SurfaceType.Smooth
+    part.BottomSurface = Enum.SurfaceType.Smooth
+    part.Parent = workspace
+end
+
+local function doFloat()
+    if part and character and character:FindFirstChild("Humanoid") then
+        if character.Humanoid.MoveDirection.magnitude == 0 then -- Check if the character is not moving
+            return -- If not moving, do not update the part's position
+        end
+        part.Position = character.HumanoidRootPart.Position + Vector3.new(0,-3,0)
+    end
+end
+
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.E then
+        isMovingUp = true
+    elseif input.KeyCode == Enum.KeyCode.Q then
+        isMovingDown = true
+    elseif input.UserInputType == Enum.UserInputType.MouseButton3 then
+        float = not float
+        if not float then
+            deletePart()
+        end
+    end
+end)
+
+UIS.InputEnded:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.E then
+        isMovingUp = false
+    elseif input.KeyCode == Enum.KeyCode.Q then
+        isMovingDown = false
+    end
+end)
+
+local Sound = Instance.new("Sound", game:GetService("SoundService"))
+Sound.SoundId = "rbxassetid://232127604"
+Sound.Volume = 0.5
+Sound:Play()
+
+while true do
+    if float and character then
+        if not part then
+            spawnPart()
+        end
+        doFloat()
+    end
+    if isMovingUp then
+        part.Position = part.Position + Vector3.new(0, moveSpeed, 0) -- Move the part up
+    elseif isMovingDown then
+        part.Position = part.Position - Vector3.new(0, moveSpeed, 0) -- Move the part down
+    end
     wait()
 end
-end)
-local Sound = Instance.new("Sound",game:GetService("SoundService"))
-Sound.SoundId = "rbxassetid://232127604"
-Sound:Play()
