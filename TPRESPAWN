@@ -1,0 +1,47 @@
+---made by d.alt
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+-- Variable to store the last death position of the local player
+local lastDeathPosition = nil
+
+-- Function to handle player character added
+local function onCharacterAdded(character)
+    if lastDeathPosition then
+        -- Wait for 0.1 second after respawn
+        wait(0.1)
+        
+        -- Teleport the player back to the last death position
+        character:SetPrimaryPartCFrame(CFrame.new(lastDeathPosition))
+    end
+end
+
+-- Listen for player character added event
+LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+-- Listen for player character removed event to track death
+LocalPlayer.CharacterRemoving:Connect(function()
+    -- Store the current position as the last death position
+    if LocalPlayer.Character then
+        lastDeathPosition = LocalPlayer.Character.PrimaryPart.Position
+    end
+end)
+
+-- Function to handle key press
+local function onKeyPress(input)
+    -- Check if the input is not being captured by a UI element
+    if not UserInputService:GetFocusedTextBox() then
+        if input.KeyCode == Enum.KeyCode.M then
+            -- Check if the local player has a character
+            if LocalPlayer.Character then
+                -- Kill the local player
+                LocalPlayer.Character:BreakJoints()
+            end
+        end
+    end
+end
+
+-- Listen for key press event
+UserInputService.InputBegan:Connect(onKeyPress)
