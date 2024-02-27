@@ -4,7 +4,7 @@ local character = player.Character
 local UIS = game:GetService("UserInputService")
 local float = false
 local part = nil
-local moveSpeed = 0.1 -- Adjust as needed
+local moveSpeed = 0.2 -- Adjust as needed
 local isMovingUp = false
 local isMovingDown = false
 
@@ -32,7 +32,7 @@ local function doFloat()
         if character.Humanoid.MoveDirection.magnitude == 0 then -- Check if the character is not moving
             return -- If not moving, do not update the part's position
         end
-        part.Position = character.HumanoidRootPart.Position + Vector3.new(0,-3,0)
+        part.Position = character.HumanoidRootPart.Position + Vector3.new(0,-2.99950,0)
     end
 end
 
