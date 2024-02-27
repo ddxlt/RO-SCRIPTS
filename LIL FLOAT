@@ -38,9 +38,13 @@ end
 
 UIS.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.E then
-        isMovingUp = true
+        if float then
+            isMovingUp = true
+        end
     elseif input.KeyCode == Enum.KeyCode.Q then
-        isMovingDown = true
+        if float then
+            isMovingDown = true
+        end
     elseif input.UserInputType == Enum.UserInputType.MouseButton3 then
         float = not float
         if not float then
