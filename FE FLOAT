@@ -39,11 +39,11 @@ local function doFloat()
 end
 
 UIS.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.E then
+    if input.KeyCode == Enum.KeyCode.E and not UIS:GetFocusedTextBox() then
         if float then
             isMovingUp = true
         end
-    elseif input.KeyCode == Enum.KeyCode.Q then
+    elseif input.KeyCode == Enum.KeyCode.Q and not UIS:GetFocusedTextBox() then
         if float then
             isMovingDown = true
         end
