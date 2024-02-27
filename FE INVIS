@@ -10,6 +10,7 @@ Because of the way this works, games with a decent anti-cheat will fuck this up.
 If you turn it off, you have to go to a safe place before going invisible.
 
 Written by: BitingTheDust ; https://v3rmillion.net/member.php?action=profile&uid=1628149
+Tweaked by: d.alt   :)
 ]]
 --Settings:
 local ScriptStarted = false
