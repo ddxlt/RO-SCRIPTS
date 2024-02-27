@@ -1,0 +1,84 @@
+---made by d.alt
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Define the block properties
+local block = Instance.new("Part")
+block.Size = Vector3.new(1.5, 0.05, 1.5) -- Adjust size as needed
+block.Color = Color3.new(1, 0, 0) -- Adjust color as needed
+block.Anchored = true
+block.CanCollide = true
+block.Transparency = 0.75
+
+-- Variable to track block visibility
+local blockVisible = true
+
+-- Function to update block position to follow player's head
+local function updateBlockPosition(player)
+    if player == LocalPlayer then
+        return
+    end
+    
+    local character = player.Character
+    if character then
+        local head = character:FindFirstChild("Head")
+        if head then
+            local blockInstance = character:FindFirstChild("Block")
+            if blockVisible then
+                if not blockInstance then
+                    blockInstance = block:Clone()
+                    blockInstance.Name = "Block"
+                    blockInstance.Parent = character
+                end
+                blockInstance.Position = head.Position + Vector3.new(0, head.Size.Y / 2 + block.Size.Y / 2, 0)
+            elseif blockInstance then
+                blockInstance:Destroy()
+            end
+        end
+    end
+end
+
+-- Function to toggle block visibility
+local function toggleBlockVisibility()
+    blockVisible = not blockVisible
+    gui.BackgroundColor3 = blockVisible and Color3.new(0, 255, 0) or Color3.new(255, 0, 0)
+end
+
+-- Create GUI for toggling block visibility
+local gui = Instance.new("ScreenGui")
+gui.Name = "ToggleBlockGUI"
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = false
+
+local toggleButton = Instance.new("TextButton")
+toggleButton.Text = "Toggle Block"
+toggleButton.Size = UDim2.new(0, 100, 0, 50)
+toggleButton.Position = UDim2.new(0, 1800, 0, 750)
+toggleButton.Parent = gui
+toggleButton.MouseButton1Click:Connect(toggleBlockVisibility)
+
+gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Update block position for existing players
+for _, player in ipairs(Players:GetPlayers()) do
+    updateBlockPosition(player)
+end
+
+-- Listen for new players joining
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        character.ChildAdded:Connect(function(child)
+            if child.Name == "Head" then
+                updateBlockPosition(player)
+            end
+        end)
+    end)
+end)
+
+-- Continuously update block position for all players
+game:GetService("RunService").Heartbeat:Connect(function()
+    for _, player in ipairs(Players:GetPlayers()) do
+        updateBlockPosition(player)
+    end
+end)
