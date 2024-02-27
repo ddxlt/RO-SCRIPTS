@@ -1,0 +1,63 @@
+---made by d.alt
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Define the distance threshold
+local DISTANCE_THRESHOLD = 10
+
+-- Variable to track whether freezing is enabled
+local freezingEnabled = true
+
+-- Function to calculate the distance between two points
+local function distance(point1, point2)
+    return (point1 - point2).Magnitude
+end
+
+-- Function to check if any other player is within the distance threshold
+local function checkPlayerProximity()
+    local localPosition = LocalPlayer.Character and LocalPlayer.Character.PrimaryPart.Position
+    if not localPosition then
+        return false
+    end
+    
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            local playerPosition = player.Character and player.Character.PrimaryPart.Position
+            if playerPosition and distance(localPosition, playerPosition) < DISTANCE_THRESHOLD then
+                return true
+            end
+        end
+    end
+    
+    return false
+end
+
+-- Function to toggle freezing
+local function toggleFreezing()
+    freezingEnabled = not freezingEnabled
+    local isPlayerNearby = checkPlayerProximity()
+    toggleFreeze(isPlayerNearby and freezingEnabled)
+end
+
+-- Function to freeze or unfreeze the local player
+local function toggleFreeze(freeze)
+    if LocalPlayer.Character then
+        LocalPlayer.Character.HumanoidRootPart.Anchored = freeze
+    end
+end
+
+-- Connect the player proximity check to a loop
+game:GetService("RunService").Heartbeat:Connect(function()
+    if freezingEnabled then
+        local isPlayerNearby = checkPlayerProximity()
+        toggleFreeze(isPlayerNearby)
+    end
+end)
+
+-- Listen for the "P" key press to toggle freezing
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.P then
+        toggleFreezing()
+    end
+end)
