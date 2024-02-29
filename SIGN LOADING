@@ -1,0 +1,41 @@
+local Player = game.Players.LocalPlayer
+local Messages = {".","..","...","....",".....","......",".......","........",".........","..........","...........","............",".............","..............","...............","................","................","................","................",}
+
+local MessageMode = 1 -- Mode 1 = shows each message, Mode 2 = picks a random message to display on the booth 
+local Booth
+
+local WaitTime = 0.1
+
+if _G.ID == nil then
+   _G.ID = 0 
+end
+function GetPlayerBooth()
+    for i,v in pairs(game:GetService("Workspace").Stalls:GetChildren()) do
+        if v.Player.Value == Player then
+           return v 
+        end
+    end
+end
+function CreateLoop(Booth)
+   _G.ID = _G.ID + 1
+    local LoopId = _G.ID
+    local MsgId = 0
+    repeat
+        local MSG;
+
+        
+        if MsgId >= #Messages then
+           MsgId = 0 
+        end
+        MsgId = MsgId + 1
+        if MessageMode == 1 then
+            MSG = Messages[MsgId]
+        elseif MessageMode == 2 then
+            MSG = Messages[math.random(1,#Messages)]
+        end
+        Booth.Edit:FireServer(MSG,"Empty")
+        wait(WaitTime)
+    until _G.ID ~= LoopId or Booth.Player.Value ~= Player
+end
+Booth = GetPlayerBooth()
+CreateLoop(Booth)
