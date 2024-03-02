@@ -1,0 +1,23 @@
+---made by d.alt
+local LP = game.Players.LocalPlayer
+
+while wait(3) do
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if v ~= LP and workspace:FindFirstChild(v.Name) and not workspace[v.Name]:FindFirstChild("CHECKER") then
+            local checker = Instance.new("BoolValue", workspace[v.Name])
+            checker.Name = "CHECKER"
+
+            for i,v in pairs(workspace:WaitForChild(v.Name):GetDescendants()) do
+                if v:IsA("Part") then ---or v:IsA("MeshPart")
+                    local collider = Instance.new("Part", v)
+                    collider.Size = v.Size
+                    collider.Position = v.Position
+                    collider.Transparency = 1
+                    local weld = Instance.new("Weld", v)
+                    weld.Part0 = v
+                    weld.Part1 = collider
+                end
+            end
+        end
+    end
+end
