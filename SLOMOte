@@ -1,0 +1,59 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Function to slow down the playback speed of emotes for a given humanoid
+local function slowDownEmotes(humanoid, slowdownFactor)
+    local animationTracks = humanoid:GetPlayingAnimationTracks()
+    for _, track in ipairs(animationTracks) do
+        track:AdjustSpeed(slowdownFactor)
+    end
+end
+
+-- Function to restore the normal playback speed of emotes for a given humanoid
+local function restoreNormalSpeed(humanoid)
+    local animationTracks = humanoid:GetPlayingAnimationTracks()
+    for _, track in ipairs(animationTracks) do
+        track:AdjustSpeed(1)  -- Restore normal speed (factor of 1)
+    end
+end
+
+-- Function to get the humanoid of the local player's character
+local function getLocalPlayerHumanoid()
+    local character = LocalPlayer.Character
+    if character then
+        return character:FindFirstChildOfClass("Humanoid")
+    end
+    return nil
+end
+
+-- Adjust the speed of emotes for the local player
+local slowdownFactor = 0.25 -- Adjust this value to set the slowdown factor (0.5 = half speed)
+local localPlayerHumanoid = getLocalPlayerHumanoid()
+
+-- Function to handle key press
+local function handleKeyPress(input)
+    if input.KeyCode == Enum.KeyCode.M then
+        if localPlayerHumanoid then
+            slowDownEmotes(localPlayerHumanoid, slowdownFactor)
+        end
+    end
+end
+
+-- Function to handle key release
+local function handleKeyRelease(input)
+    if input.KeyCode == Enum.KeyCode.M then
+        if localPlayerHumanoid then
+            restoreNormalSpeed(localPlayerHumanoid)
+        end
+    end
+end
+
+-- Listen for key press and release events
+UserInputService.InputBegan:Connect(handleKeyPress)
+UserInputService.InputEnded:Connect(handleKeyRelease)
+
+-- Listen for changes to the local player's character
+LocalPlayer.CharacterAdded:Connect(function(character)
+    localPlayerHumanoid = character:FindFirstChildOfClass("Humanoid")
+end)
