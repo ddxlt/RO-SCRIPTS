@@ -1,23 +1,83 @@
----made by d.alt
+local UserInputService = game:GetService("UserInputService")
 local LP = game.Players.LocalPlayer
+local toggleKey = Enum.KeyCode.N
+local debounce = false
+local collisionPartsEnabled = false
 
-while wait(3) do
-    for i,v in pairs(game.Players:GetPlayers()) do
-        if v ~= LP and workspace:FindFirstChild(v.Name) and not workspace[v.Name]:FindFirstChild("CHECKER") then
-            local checker = Instance.new("BoolValue", workspace[v.Name])
-            checker.Name = "CHECKER"
+-- Function to check if a part is an accessory
+local function isAccessory(part)
+    return part:IsA("Accessory") or (part.Parent and part.Parent:IsA("Accessory"))
+end
 
-            for i,v in pairs(workspace:WaitForChild(v.Name):GetDescendants()) do
-                if v:IsA("Part") then ---or v:IsA("MeshPart")
-                    local collider = Instance.new("Part", v)
-                    collider.Size = v.Size
-                    collider.Position = v.Position
-                    collider.Transparency = 1
-                    local weld = Instance.new("Weld", v)
-                    weld.Part0 = v
-                    weld.Part1 = collider
-                end
+-- Function to add collision parts
+local function addCollisionParts(playerName)
+    local playerWorkspace = workspace:FindFirstChild(playerName)
+    if playerWorkspace then
+        for _, descendant in pairs(playerWorkspace:GetDescendants()) do
+            if (descendant:IsA("Part") or descendant:IsA("MeshPart")) and not isAccessory(descendant) then
+                local collider = Instance.new("Part", descendant)
+                collider.Name = "CollisionPart"
+                collider.Size = descendant.Size
+                collider.Position = descendant.Position
+                collider.Transparency = 0.95
+                local weld = Instance.new("Weld", descendant)
+                weld.Part0 = descendant
+                weld.Part1 = collider
             end
         end
     end
+end
+
+-- Function to remove collision parts
+local function removeCollisionParts(playerName)
+    local playerWorkspace = workspace:FindFirstChild(playerName)
+    if playerWorkspace then
+        for _, descendant in pairs(playerWorkspace:GetDescendants()) do
+            if descendant:IsA("Part") and descendant.Name == "CollisionPart" or descendant:IsA("MeshPart") and descendant.Name == "CollisionPart" then
+                descendant:Destroy()
+            end
+        end
+    end
+end
+
+-- Function to toggle collision parts
+local function toggleCollisionParts()
+    collisionPartsEnabled = not collisionPartsEnabled
+    if collisionPartsEnabled then
+        print("Collision parts enabled")
+        -- Add collision parts for all players
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= LP then
+                addCollisionParts(player.Name)
+            end
+        end
+    else
+        print("Collision parts disabled")
+        -- Remove collision parts for all players
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= LP then
+                removeCollisionParts(player.Name)
+            end
+        end
+    end
+end
+
+-- Listen for key press to toggle collision parts
+UserInputService.InputBegan:Connect(function(input)
+    -- Check if the input is not being captured by a UI element
+    if not UserInputService:GetFocusedTextBox() then
+        if input.KeyCode == toggleKey and not debounce then
+            if LP.Character then
+                    debounce = true
+                    toggleCollisionParts()
+                    wait(0.5) -- Add debounce time to prevent rapid toggling
+                    debounce = false
+            end
+        end
+    end
+end)
+
+-- Main loop (optional if you want to continuously add collision parts)
+while true do
+    wait(0.5)
 end
