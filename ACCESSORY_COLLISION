@@ -1,0 +1,101 @@
+---made by d.alt
+
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local LP = game.Players.LocalPlayer
+local toggleKey = Enum.KeyCode.C
+local debounce = false
+local collisionPartsEnabled = false
+
+-- Function to check if a part is an accessory
+local function isAccessory(part)
+    return part:IsA("Accessory") or (part.Parent and part.Parent:IsA("Accessory"))
+end
+
+-- Function to add collision parts
+local function addCollisionParts(playerName)
+    local playerWorkspace = workspace:FindFirstChild(playerName)
+    if playerWorkspace then
+        for _, descendant in pairs(playerWorkspace:GetDescendants()) do
+            if (descendant:IsA("Part") or descendant:IsA("MeshPart")) then
+                local collider = Instance.new("Part", descendant)
+                collider.Name = "CollisionPart"
+                collider.Size = descendant.Size
+                collider.Position = descendant.Position
+                collider.Transparency = 1.0
+                local weld = Instance.new("Weld", descendant)
+                weld.Part0 = descendant
+                weld.Part1 = collider
+            end
+        end
+    end
+end
+
+-- Function to remove collision parts
+local function removeCollisionParts(playerName)
+    local playerWorkspace = workspace:FindFirstChild(playerName)
+    if playerWorkspace then
+        for _, descendant in pairs(playerWorkspace:GetDescendants()) do
+            if descendant:IsA("Part") and descendant.Name == "CollisionPart" or descendant:IsA("MeshPart") and descendant.Name == "CollisionPart" then
+                descendant:Destroy()
+            end
+        end
+    end
+end
+
+-- Function to toggle collision parts
+local function toggleCollisionParts()
+    collisionPartsEnabled = not collisionPartsEnabled
+    if collisionPartsEnabled then
+        print("Collision parts enabled")
+        local Sound = Instance.new("Sound",game:GetService("SoundService"))
+        Sound.SoundId = "rbxassetid://452267918"
+        Sound:Play()
+        -- Add collision parts for all players
+        for _, player in pairs(Players:GetPlayers()) do
+            if player ~= LP then
+                addCollisionParts(player.Name)
+            end
+        end
+    else
+        print("Collision parts disabled")
+        -- Remove collision parts for all players
+        for _, player in pairs(Players:GetPlayers()) do
+            if player ~= LP then
+                removeCollisionParts(player.Name)
+            end
+        end
+    end
+end
+
+-- Function to handle player added event
+local function onPlayerAdded(player)
+    player.CharacterAdded:Connect(function(character)
+        if collisionPartsEnabled then
+            addCollisionParts(player.Name)
+        end
+    end)
+end
+
+-- Listen for player added event
+Players.PlayerAdded:Connect(onPlayerAdded)
+
+-- Listen for key press to toggle collision parts
+UserInputService.InputBegan:Connect(function(input)
+    -- Check if the input is not being captured by a UI element
+    if not UserInputService:GetFocusedTextBox() then
+        if input.KeyCode == toggleKey and not debounce then
+            if LP.Character then
+                debounce = true
+                toggleCollisionParts()
+                wait(0.5) -- Add debounce time to prevent rapid toggling
+                debounce = false
+            end
+        end
+    end
+end)
+
+-- Main loop (optional if you want to continuously add collision parts)
+while true do
+    wait(0.5)
+end
