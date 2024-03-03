@@ -1,4 +1,7 @@
+---made by d.alt
+
 local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 local LP = game.Players.LocalPlayer
 local toggleKey = Enum.KeyCode.N
 local debounce = false
@@ -19,7 +22,7 @@ local function addCollisionParts(playerName)
                 collider.Name = "CollisionPart"
                 collider.Size = descendant.Size
                 collider.Position = descendant.Position
-                collider.Transparency = 0.95
+                collider.Transparency = 1.0
                 local weld = Instance.new("Weld", descendant)
                 weld.Part0 = descendant
                 weld.Part1 = collider
@@ -45,8 +48,11 @@ local function toggleCollisionParts()
     collisionPartsEnabled = not collisionPartsEnabled
     if collisionPartsEnabled then
         print("Collision parts enabled")
+        local Sound = Instance.new("Sound",game:GetService("SoundService"))
+        Sound.SoundId = "rbxassetid://452267918"
+        Sound:Play()
         -- Add collision parts for all players
-        for _, player in pairs(game.Players:GetPlayers()) do
+        for _, player in pairs(Players:GetPlayers()) do
             if player ~= LP then
                 addCollisionParts(player.Name)
             end
@@ -54,7 +60,7 @@ local function toggleCollisionParts()
     else
         print("Collision parts disabled")
         -- Remove collision parts for all players
-        for _, player in pairs(game.Players:GetPlayers()) do
+        for _, player in pairs(Players:GetPlayers()) do
             if player ~= LP then
                 removeCollisionParts(player.Name)
             end
@@ -62,16 +68,28 @@ local function toggleCollisionParts()
     end
 end
 
+-- Function to handle player added event
+local function onPlayerAdded(player)
+    player.CharacterAdded:Connect(function(character)
+        if collisionPartsEnabled then
+            addCollisionParts(player.Name)
+        end
+    end)
+end
+
+-- Listen for player added event
+Players.PlayerAdded:Connect(onPlayerAdded)
+
 -- Listen for key press to toggle collision parts
 UserInputService.InputBegan:Connect(function(input)
     -- Check if the input is not being captured by a UI element
     if not UserInputService:GetFocusedTextBox() then
         if input.KeyCode == toggleKey and not debounce then
             if LP.Character then
-                    debounce = true
-                    toggleCollisionParts()
-                    wait(0.5) -- Add debounce time to prevent rapid toggling
-                    debounce = false
+                debounce = true
+                toggleCollisionParts()
+                wait(0.5) -- Add debounce time to prevent rapid toggling
+                debounce = false
             end
         end
     end
