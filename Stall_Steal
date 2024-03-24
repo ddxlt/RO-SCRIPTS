@@ -1,4 +1,5 @@
---By ExHackey
+--tweaked by d.alt
+
 local StandStealer = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local StallButtons = Instance.new("Frame")
@@ -7,6 +8,7 @@ local _2 = Instance.new("TextButton")
 local _3 = Instance.new("TextButton")
 local _4 = Instance.new("TextButton")
 local _5 = Instance.new("TextButton")
+local _6 = Instance.new("TextButton")
 local StallChooser = Instance.new("TextButton")
 local Steal = Instance.new("TextButton")
 local Choice = nil
@@ -32,6 +34,22 @@ elseif Choice == 5 then
 Stall.Stall4.ProxPart.ProximityPrompt.Enabled = true
 Stall.Stall4.ProxPart.ProximityPrompt.RequiresLineOfSight = false
 Stall.Stall4.ProxPart.ProximityPrompt.HoldDuration = 0
+elseif Choice == 6 then
+Stall.Stall1.ProxPart.ProximityPrompt.Enabled = true
+Stall.Stall1.ProxPart.ProximityPrompt.RequiresLineOfSight = false
+Stall.Stall1.ProxPart.ProximityPrompt.HoldDuration = 0
+Stall.Stall2.ProxPart.ProximityPrompt.Enabled = true
+Stall.Stall2.ProxPart.ProximityPrompt.RequiresLineOfSight = false
+Stall.Stall2.ProxPart.ProximityPrompt.HoldDuration = 0
+Stall.Stall3.ProxPart.ProximityPrompt.Enabled = true
+Stall.Stall3.ProxPart.ProximityPrompt.RequiresLineOfSight = false
+Stall.Stall3.ProxPart.ProximityPrompt.HoldDuration = 0
+Stall.Stall4.ProxPart.ProximityPrompt.Enabled = true
+Stall.Stall4.ProxPart.ProximityPrompt.RequiresLineOfSight = false
+Stall.Stall4.ProxPart.ProximityPrompt.HoldDuration = 0
+Stall.Stall5.ProxPart.ProximityPrompt.Enabled = true
+Stall.Stall5.ProxPart.ProximityPrompt.RequiresLineOfSight = false
+Stall.Stall5.ProxPart.ProximityPrompt.HoldDuration = 0
 end
 end
 --Properties:
@@ -39,24 +57,24 @@ StandStealer.Name = "StandStealer"
 StandStealer.Parent = game.CoreGui
 StandStealer.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Frame.Parent = StandStealer
-Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Frame.Position = UDim2.new(0.01, 0, 0.85, 0)
 Frame.Size = UDim2.new(0, 210, 0, 40)
 StallButtons.Name = "StallButtons"
 StallButtons.Parent = Frame
-StallButtons.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+StallButtons.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 StallButtons.BorderSizePixel = 0
 StallButtons.Size = UDim2.new(0, 144, 0, 110)
 StallButtons.Visible = false
 StallChooser.Name = "StallChooser"
 StallChooser.Parent = Frame
-StallChooser.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-StallChooser.BorderColor3 = Color3.fromRGB(81, 116, 162)
+StallChooser.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+StallChooser.BorderColor3 = Color3.fromRGB(91, 0, 209)
 StallChooser.Position = UDim2.new(0.0202380959, 0, 0.16785714, 0)
 StallChooser.Size = UDim2.new(0, 140, 0, 25)
 StallChooser.Font = Enum.Font.FredokaOne
 StallChooser.Text = "Stall Chosen = nil"
-StallChooser.TextColor3 = Color3.fromRGB(35, 186, 216)
+StallChooser.TextColor3 = Color3.fromRGB(89, 0, 255)
 StallChooser.TextSize = 14.000
 StallChooser.TextWrapped = true
 StallChooser.MouseButton1Up:Connect(function()
@@ -65,13 +83,13 @@ StallButtons.Visible = true
 end)
 _1.Name = "1"
 _1.Parent = StallButtons
-_1.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-_1.BorderColor3 = Color3.fromRGB(81, 116, 162)
+_1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_1.BorderColor3 = Color3.fromRGB(91, 0, 209)
 _1.Position = UDim2.new(0.0322222188, 0, 0.0484848581, 0)
 _1.Size = UDim2.new(0, 134, 0, 20)
 _1.Font = Enum.Font.FredokaOne
 _1.Text = "Stall 1"
-_1.TextColor3 = Color3.fromRGB(35, 186, 216)
+_1.TextColor3 = Color3.fromRGB(89, 0, 255)
 _1.TextSize = 14.000
 _1.MouseButton1Up:Connect(function()
 StallChooser.Text = "Stall Chosen = 1"
@@ -81,13 +99,13 @@ StallChooser.Visible = true
 end)
 _2.Name = "2"
 _2.Parent = StallButtons
-_2.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-_2.BorderColor3 = Color3.fromRGB(81, 116, 162)
+_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_2.BorderColor3 = Color3.fromRGB(91, 0, 209)
 _2.Position = UDim2.new(0.0322221667, 0, 0.227272645, 0)
 _2.Size = UDim2.new(0, 134, 0, 20)
 _2.Font = Enum.Font.FredokaOne
 _2.Text = "Stall 2"
-_2.TextColor3 = Color3.fromRGB(35, 186, 216)
+_2.TextColor3 = Color3.fromRGB(89, 0, 255)
 _2.TextSize = 14.000
 _2.MouseButton1Up:Connect(function()
 StallChooser.Text = "Stall Chosen = 2"
@@ -97,13 +115,13 @@ StallChooser.Visible = true
 end)
 _3.Name = "3"
 _3.Parent = StallButtons
-_3.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-_3.BorderColor3 = Color3.fromRGB(81, 116, 162)
+_3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_3.BorderColor3 = Color3.fromRGB(91, 0, 209)
 _3.Position = UDim2.new(0.0322222188, 0, 0.400797486, 0)
 _3.Size = UDim2.new(0, 134, 0, 20)
 _3.Font = Enum.Font.FredokaOne
 _3.Text = "Stall 3"
-_3.TextColor3 = Color3.fromRGB(35, 186, 216)
+_3.TextColor3 = Color3.fromRGB(89, 0, 255)
 _3.TextSize = 14.000
 _3.MouseButton1Up:Connect(function()
 StallChooser.Text = "Stall Chosen = 3"
@@ -113,13 +131,13 @@ StallChooser.Visible = true
 end)
 _4.Name = "4"
 _4.Parent = StallButtons
-_4.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-_4.BorderColor3 = Color3.fromRGB(81, 116, 162)
+_4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_4.BorderColor3 = Color3.fromRGB(91, 0, 209)
 _4.Position = UDim2.new(0.0322224051, 0, 0.578883588, 0)
 _4.Size = UDim2.new(0, 134, 0, 20)
 _4.Font = Enum.Font.FredokaOne
 _4.Text = "Stall 4"
-_4.TextColor3 = Color3.fromRGB(35, 186, 216)
+_4.TextColor3 = Color3.fromRGB(89, 0, 255)
 _4.TextSize = 14.000
 _4.MouseButton1Up:Connect(function()
 StallChooser.Text = "Stall Chosen = 4"
@@ -129,13 +147,13 @@ StallChooser.Visible = true
 end)
 _5.Name = "5"
 _5.Parent = StallButtons
-_5.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-_5.BorderColor3 = Color3.fromRGB(81, 116, 162)
+_5.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_5.BorderColor3 = Color3.fromRGB(91, 0, 209)
 _5.Position = UDim2.new(0.0322222263, 0, 0.75363636, 0)
 _5.Size = UDim2.new(0, 134, 0, 20)
 _5.Font = Enum.Font.FredokaOne
 _5.Text = "Stall 5"
-_5.TextColor3 = Color3.fromRGB(35, 186, 216)
+_5.TextColor3 = Color3.fromRGB(89, 0, 255)
 _5.TextSize = 14.000
 _5.MouseButton1Up:Connect(function()
 StallChooser.Text = "Stall Chosen = 5"
@@ -143,15 +161,31 @@ Choice = 5
 StallButtons.Visible = false
 StallChooser.Visible = true
 end)
+_6.Name = "6"
+_6.Parent = StallButtons
+_6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_6.BorderColor3 = Color3.fromRGB(91, 0, 209)
+_6.Position = UDim2.new(0.0322222263, 0, 0.928389132, 0)
+_6.Size = UDim2.new(0, 134, 0, 20)
+_6.Font = Enum.Font.FredokaOne
+_6.Text = "ALL STALLS"
+_6.TextColor3 = Color3.fromRGB(89, 0, 255)
+_6.TextSize = 14.000
+_6.MouseButton1Up:Connect(function()
+StallChooser.Text = "Stall Chosen = ALL"
+Choice = 6
+StallButtons.Visible = false
+StallChooser.Visible = true
+end)
 Steal.Name = "Steal"
 Steal.Parent = Frame
-Steal.BackgroundColor3 = Color3.fromRGB(216, 230, 255)
-Steal.BorderColor3 = Color3.fromRGB(81, 116, 162)
+Steal.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Steal.BorderColor3 = Color3.fromRGB(91, 0, 209)
 Steal.Position = UDim2.new(0.685168922, 0, 0.16785714, 0)
 Steal.Size = UDim2.new(0, 60, 0, 25)
 Steal.Font = Enum.Font.FredokaOne
 Steal.Text = "Steal"
-Steal.TextColor3 = Color3.fromRGB(35, 186, 216)
+Steal.TextColor3 = Color3.fromRGB(89, 0, 255)
 Steal.TextSize = 14.000
 Steal.MouseButton1Up:Connect(function()
 SStall()
