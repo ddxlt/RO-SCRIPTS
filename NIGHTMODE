@@ -1,0 +1,34 @@
+--- d.alt on Discord
+
+
+local Lighting = game:GetService("Lighting")
+
+-- Set dusk lighting properties
+Lighting.ClockTime = 5.95 -- Set the time to around dusk (in 24-hour format, 18 is around 6 PM)
+Lighting.Ambient = Color3.fromRGB(12, 12, 12) -- Set ambient light to a dim gray
+Lighting.Brightness = 1 -- Increase overall brightness slightly
+Lighting.OutdoorAmbient = Color3.fromRGB(70, 70, 70) -- Set outdoor ambient light to a dim gray
+Lighting.GlobalShadows = true -- Enable global shadows for a darker environment
+
+-- Enable advanced graphics settings
+Lighting.Technology = Enum.Technology.Voxel -- Use Voxel lighting technology for better light diffusion
+Lighting.QualityLevel = Enum.QualityLevel.Level21 -- Set the quality level to level 21 for higher graphics quality
+Lighting.ExposureCompensation = 0.5 -- Adjust exposure compensation for better lighting contrast
+
+-- Enable advanced effects
+Lighting.BloomIntensity = 0.5 -- Add bloom effect for better lighting glow
+Lighting.DepthOfField = true -- Enable depth of field effect for better focus on objects
+Lighting.GlobalShadows = true -- Enable global shadows for more realistic shadows
+Lighting.SunRays = true -- Enable sun rays for atmospheric effects
+
+-- Adjust graphics settings for better performance
+game:GetService("StarterGui"):SetCore("RenderSettings", {
+    EnableFRAMERATELIMITER = true,
+    GraphicsMode = "Automatic",
+    QualityLevel = 21,
+    ShouldWaitForLoadingScreen = true
+})
+
+-- You can adjust the properties above to fine-tune the dusk atmosphere and visual effects
+
+print("Time set to dusk with enhanced lighting.")
