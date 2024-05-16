@@ -1,0 +1,6 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ddxlt/RO-SCRIPTS/main/COLLISION_ON",true))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ddxlt/RO-SCRIPTS/main/NIGHTMODE'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ddxlt/RO-SCRIPTS/main/SMALL%20INVIS'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ddxlt/RO-SCRIPTS/main/LIL%20FLOAT'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ddxlt/RO-SCRIPTS/main/Stall_Steal'))()
